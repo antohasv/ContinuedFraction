@@ -1,39 +1,28 @@
-import java.util.ArrayList;
+package algorithm;
+
 import java.util.Arrays;
 import java.util.List;
 
-public class Main {
+public class ConvergentsAlg {
 
-    public Main() {
+    private List<Integer> resultFractions;
+
+    public static ConvergentsAlg initArg(List<Integer> resultFractions) {
+        return new ConvergentsAlg(resultFractions);
     }
 
-    public static void main(String []args) {
-        new Main().execute();
+    public ConvergentsAlg(List<Integer> resultFractions) {
+        if (resultFractions == null) {
+            throw new IllegalArgumentException("resultFractions == null");
+        }
+
+        if (resultFractions.size() == 0) {
+            throw new IllegalArgumentException("resultFractions size = 0");
+        }
+        this.resultFractions = resultFractions;
     }
 
-    public void execute() {
-        int a = 105;
-        int b = 38;
-
-        List<Integer> resultFractions = computeContinuousFraction(a, b);
-        Convergents convergents = computeConvergents(resultFractions);
-        System.out.println("ContinuousFraction{Q_s=" + resultFractions.toString() + "}");
-        System.out.println(convergents.toString());
-    }
-
-    private List<Integer> computeContinuousFraction(int a, int b) {
-        List<Integer> resultFractions = new ArrayList<Integer>();
-        int d = 0;
-        do {
-            resultFractions.add(a / b);
-            d = a % b;
-            a = b;
-            b = d;
-         } while (d != 0);
-        return resultFractions;
-    }
-
-    private Convergents computeConvergents(List<Integer> resultFractions) {
+    public Convergents solve() {
         if (resultFractions.size() == 0) {
             return null;
         }
@@ -55,7 +44,7 @@ public class Main {
         return new Convergents(arrayP, arrayQ);
     }
 
-    class Convergents {
+    public class Convergents {
         Integer[] arrayP;
         Integer[] arrayQ;
 
